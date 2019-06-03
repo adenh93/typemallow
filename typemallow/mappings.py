@@ -1,6 +1,6 @@
 from marshmallow import fields
 
-MAPPINGS = {
+mappings = {
     fields.Bool: 'boolean',
     fields.Boolean: 'boolean',
     fields.Constant: 'any',

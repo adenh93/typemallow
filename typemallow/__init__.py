@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields
-from mappings import mappings
+from .mappings import mappings
 
 __schemas = dict()
 

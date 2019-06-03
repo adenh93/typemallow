@@ -10,7 +10,7 @@ setuptools.setup(
     author_email="aden.herold1@gmail.com",
 
     description="An elegant and automatic solution for generating/outputting Typescript interfaces from your Marshmallow Schemas.",
-    long_description=open('README.md').read(),
+    keywords=['Marshmallow', 'Typescript', 'Python', 'Flask', 'Django'],
 
     packages=['typemallow'],
     include_package_data=True,

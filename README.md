@@ -71,12 +71,12 @@ class FooBar(Schema):
 we're telling typemallow that we only want to generate interfaces from Schemas with 
 an 'internal' context to './internal.ts' 
 '''
-generate_ts('./internal.ts', 'internal')
+generate_ts('./internal.ts', context='internal')
 
 ''' 
 only generate interfaces from Schemas with an 'external' context to './external.ts' 
 '''
-generate_ts('./external.ts', 'external')
+generate_ts('./external.ts', context='external')
 ```
 
 _internal.ts_

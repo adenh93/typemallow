@@ -18,6 +18,6 @@ def __get_ts_interface(schema):
 
 
 def generate_ts(output_path, context='default'):
-    interfaces = [__get_ts_interface(schema) for schema in __schemas]
+    interfaces = [__get_ts_interface(schema) for schema in __schemas[context]]
     with open(output_path) as output_file:
         output_file.write(''.join(interfaces))

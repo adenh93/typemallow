@@ -17,7 +17,6 @@ mappings = {
     fields.LocalDateTime: 'Date',
     fields.Mapping: 'any',
     fields.Method: 'any',
-    fields.Nested: 'any',
     fields.Number: 'number',
     fields.Raw: 'any',
     fields.Str: 'string',

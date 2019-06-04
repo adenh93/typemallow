@@ -37,14 +37,20 @@ def __get_ts_interface(schema):
 
     '''
     name = schema.__name__.replace('Schema', '')
-    fields = []
+    ts_fields = []
     for key, value in schema._declared_fields.items():
-        ts_type = mappings.get(type(value), 'any')
-        fields.append(
+        if type(value) is fields.Nested:
+            ts_type = value.nested.__name__
+            if value.many:
+                ts_type += '[]'
+        else:
+            ts_type = mappings.get(type(value), 'any')
+
+        ts_fields.append(
             f'\t{key}: {ts_type};'
         )
-    fields = '\n'.join(fields)
-    return f'export interface {name} {{\n{fields}\n}}\n\n'
+    ts_fields = '\n'.join(ts_fields)
+    return f'export interface {name} {{\n{ts_fields}\n}}\n\n'
 
 
 def generate_ts(output_path, context='default'):

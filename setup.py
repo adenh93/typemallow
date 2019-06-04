@@ -6,7 +6,7 @@ with open('README.md') as file:
 
 setuptools.setup(
     name="typemallow",
-    version="0.0.1",
+    version="0.0.2",
     url="https://github.com/aher93/typemallow",
 
     author="Aden Herold",

@@ -36,6 +36,37 @@ export interface Foo {
 }
 ```
 
+_typemallow_ even supports Nested Schema fields!
+
+_main.py_
+```python
+from typemallow import ts_interface, generate_ts
+
+@ts_interface()
+class Foo(Schema):
+    some_field = fields.Str()
+    another_field = fields.Date()
+
+@ts_interface()
+class Bar(Schema):
+    foo = fields.Nested(Foo)
+    foos = fields.Nested(Foo, many=True)
+    bar_field = fields.Str()
+```
+_output.ts_
+```typescript
+export interface Foo {
+    some_field: string;
+    another_field: date;
+}
+
+export interface Bar {
+    foo: Foo;
+    foos: Foo[];
+    bar_field: string;
+}
+```
+
 ### Extended Usage:
 The `@ts_interface()` decorator function accepts an optional parameter, _context_, which defaults to... well... 'default'.
 

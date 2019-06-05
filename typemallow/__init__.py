@@ -40,7 +40,7 @@ def __get_ts_interface(schema):
     ts_fields = []
     for key, value in schema._declared_fields.items():
         if type(value) is fields.Nested:
-            ts_type = value.nested.__name__
+            ts_type = value.nested.__name__.replace('Schema', '')
             if value.many:
                 ts_type += '[]'
         else:

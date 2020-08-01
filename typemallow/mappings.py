@@ -23,6 +23,5 @@ mappings = {
     fields.String: 'string',
     fields.TimeDelta: 'any',
     fields.Url: 'string',
-    fields.Url: 'string',
     fields.UUID: 'string',
 }

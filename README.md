@@ -36,12 +36,10 @@ export interface Foo {
 }
 ```
 
-_typemallow_ even supports Nested Schema fields!
+_typemallow_ supports Nested Schema fields, as well as List and Dict fields!
 
 _main.py_
 ```python
-from typemallow import ts_interface, generate_ts
-
 @ts_interface()
 class Foo(Schema):
     some_field = fields.Str()
@@ -52,6 +50,8 @@ class Bar(Schema):
     foo = fields.Nested(Foo)
     foos = fields.Nested(Foo, many=True)
     bar_field = fields.Str()
+    baz_list = fields.List(fields.Str())
+    baz_dict = fields.Dict(keys=fields.Str(), values=fields.Integer()
 ```
 _output.ts_
 ```typescript
@@ -64,11 +64,38 @@ export interface Bar {
     foo: Foo;
     foos: Foo[];
     bar_field: string;
+    baz_list: string[];
+    baz_dict: [key: string]: number;
+}
+```
+
+_typemallow_ is able to generate enums for schemas that have `OneOf` validation
+
+_main.py_
+```python
+choices = ['foo', 'bar', 'baz']
+
+@ts_interface()
+class TestSchema(Schema):
+    string_field = fields.String(required=True, allow_none=True)
+    enum_field = fields.String(validate=OneOf(choices=choices))
+```
+_output.ts_
+```typescript
+export enum EnumField {
+  FOO = 'foo',
+  BAR = 'bar',
+  BAZ = 'baz'
+}
+
+export interface TestSchema {
+    enum_field?: EnumField;
+    string_field: string| null;
 }
 ```
 
 ### Extended Usage:
-The `@ts_interface()` decorator function accepts an optional parameter, _context_, which defaults to... well... 'default'.
+The `@ts_interface()` decorator function accepts an optional parameter, _context_, which defaults to... well... 'default'. This argument can also be a list of strings.
 
 "_Why is this the case?_" 
 

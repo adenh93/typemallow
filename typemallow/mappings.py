@@ -14,7 +14,6 @@ mappings = {
     fields.Int: 'number',
     fields.Integer: 'number',
     fields.List: 'any[]',
-    fields.LocalDateTime: 'Date',
     fields.Mapping: 'any',
     fields.Method: 'any',
     fields.Number: 'number',

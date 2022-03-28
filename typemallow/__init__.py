@@ -38,6 +38,7 @@ def _get_ts_type(value):
         if value.many:
             ts_type += '[]'
     elif type(value) is fields.List:
+        print(vars(value))
         item_type = value.container.__class__
         if item_type is fields.Nested:
             nested_type = value.container.nested.__name__

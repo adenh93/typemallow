@@ -70,7 +70,7 @@ def __get_ts_interface(schema):
     for key, value in schema._declared_fields.items():
         if type(value) is fields.Nested:
             print(vars(value))
-            ts_type = value.nested.replace('Schema', '')
+            ts_type = value.nested.__name__.replace('Schema', '')
             if value.many:
                 ts_type += '[]'
         else:

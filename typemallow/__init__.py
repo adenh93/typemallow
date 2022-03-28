@@ -32,6 +32,28 @@ def ts_interface(context='default'):
         return cls
     return decorator
 
+def _get_ts_type(value):
+    if type(value) is fields.Nested:
+        ts_type = value.nested.__name__
+        if value.many:
+            ts_type += '[]'
+    elif type(value) is fields.List:
+        item_type = value.container.__class__
+        if item_type is fields.Nested:
+            nested_type = value.container.nested.__name__
+            ts_type = f'{nested_type}[]'
+        else:
+            type = mappings.get(item_type, 'any')
+            ts_type = f'{type}[]'
+    elif type(value) is fields.Dict:
+        keys_type = mappings.get(type(value.key_container), 'any')
+        values_type = _get_ts_type(value.value_container)
+        ts_type = f'{{[key: {keys_type}]: {values_type}}}'
+    else:
+        ts_type = mappings.get(type(value), 'any')
+
+    return ts_type
+
 
 def __get_ts_interface(schema):
     '''
@@ -50,7 +72,7 @@ def __get_ts_interface(schema):
             if value.many:
                 ts_type += '[]'
         else:
-            ts_type = mappings.get(type(value), 'any')
+            ts_type = _get_ts_type(value)
 
         ts_fields.append(
             f'\t{key}: {ts_type};'

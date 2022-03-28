@@ -43,8 +43,8 @@ def _get_ts_type(value):
             nested_type = value.container.nested.__name__
             ts_type = f'{nested_type}[]'
         else:
-            type = mappings.get(item_type, 'any')
-            ts_type = f'{type}[]'
+            ts_type = mappings.get(item_type, 'any')
+            ts_type = f'{ts_type}[]'
     elif type(value) is fields.Dict:
         keys_type = mappings.get(type(value.key_container), 'any')
         values_type = _get_ts_type(value.value_container)

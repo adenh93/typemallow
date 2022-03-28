@@ -38,7 +38,6 @@ def _get_ts_type(value):
         if value.many:
             ts_type += '[]'
     elif type(value) is fields.List:
-        print(vars(value))
         item_type = value.container.__class__
         if item_type is fields.Nested:
             nested_type = value.container.nested.__name__
@@ -69,7 +68,6 @@ def __get_ts_interface(schema):
     ts_fields = []
     for key, value in schema._declared_fields.items():
         if type(value) is fields.Nested:
-            print(vars(value))
             ts_type = value.nested.replace('Schema', '')
             if value.many:
                 ts_type += '[]'
@@ -95,8 +93,6 @@ def generate_ts(output_path, context='default'):
     The Typescript interfaces will then be outputted to the file provided.
 
     '''
-    print(__schemas)
     with open(output_path, 'w') as output_file:
         interfaces = [__get_ts_interface(schema) for schema in __schemas[context]]
-        print(interfaces)
         output_file.write(''.join(interfaces))

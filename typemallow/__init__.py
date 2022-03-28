@@ -65,6 +65,7 @@ def generate_ts(output_path, context='default'):
     The Typescript interfaces will then be outputted to the file provided.
 
     '''
+    print(__schemas)
     with open(output_path, 'w') as output_file:
         interfaces = [__get_ts_interface(schema) for schema in __schemas[context]]
         output_file.write(''.join(interfaces))

@@ -20,9 +20,15 @@ def ts_interface(context='default'):
     '''
     def decorator(cls):
         if issubclass(cls, Schema):
-            if not context in __schemas:
-                __schemas[context] = []
-            __schemas[context].append(cls)
+            if isinstance(context, list):
+                for ctx in context:
+                    if not ctx in __schemas:
+                        __schemas[ctx] = []
+                    __schemas[ctx].append(cls)
+            else:
+                if not context in __schemas:
+                    __schemas[context] = []
+                __schemas[context].append(cls)
         return cls
     return decorator
 
